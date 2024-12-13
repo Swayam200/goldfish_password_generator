@@ -1,1 +1,1 @@
-# goldfish_password_generator
+# Goldfish Password Generator
