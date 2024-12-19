@@ -41,7 +41,7 @@ This project explores an innovative approach to generating random numbers using 
 
 ### Steps
 1. Clone this repository:
-   git clone https://github.com/your-username/random-number-generator-fish
+   git clone https://github.com/your-username/goldfish_password_generator
 
 2. Navigate to the project directory:
    cd random-number-generator-fish
