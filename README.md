@@ -108,6 +108,5 @@ Contributions are welcome! Please follow these steps:
 This project is licensed under the MIT License. See LICENSE.md for details.
 
 ## Acknowledgments
-- Dr. Nancy Kumari for guidance and insights throughout the project.
 - OpenCV and NumPy communities for their robust tools and documentation.
 - The team members for their collaborative effort in completing this project.
