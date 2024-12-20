@@ -77,6 +77,11 @@ Seed: 123456789abcdef
 Hashed Seed: e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  
 Generated Password: @dXf!3Vq#Aa9  
 
+### Images
+![CleanShot 2024-12-20 at 12 03 01@2x](https://github.com/user-attachments/assets/2dec4871-3b31-4ff5-acb2-9a33f8c66271)
+
+![CleanShot 2024-12-20 at 10 59 13@2x](https://github.com/user-attachments/assets/401eee25-9c43-491f-beff-bd9422bf3822)
+
 ## Limitations
 - Requires a controlled environment for reliable data collection.
 - High-resolution tracking may need advanced hardware for processing.
