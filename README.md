@@ -1,4 +1,4 @@
-# Random Number Generator Using Fish Movements
+# Random Number Generator Using Fish Movements 🐟
 
 ## Project Description
 This project explores an innovative approach to generating random numbers using the unpredictable swimming patterns of goldfish. By leveraging computer vision and cryptographic techniques, the movements are tracked, analyzed, and processed into secure random seeds for password generation. This project demonstrates the potential of biological systems as a source of true randomness for cryptography and other secure applications.
