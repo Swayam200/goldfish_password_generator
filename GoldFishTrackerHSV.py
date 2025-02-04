@@ -1,21 +1,27 @@
 import cv2
 import numpy as np
 
-
 def calculate_distance(x1, y1, x2, y2):
     return np.sqrt((x2 - x1) ** 2 + (y2 - y1) ** 2)
-
 
 def calculate_angle(x1, y1, x2, y2):
     return np.arctan2(y2 - y1, x2 - x1) * (180 / np.pi)
 
+def lfsr_scramble(binary_sequence, seed=0b1100101, tap=0b101):
+    lfsr = seed
+    scrambled_sequence = ""
+    for bit in binary_sequence:
+        new_bit = (lfsr >> 2) & 1 ^ (lfsr >> 1) & 1  # XOR taps
+        lfsr = ((lfsr << 1) | new_bit) & 0b1111111  # Keep LFSR within 7 bits
+        scrambled_sequence += str(int(bit) ^ new_bit)  # XOR with input bit
+    return scrambled_sequence
 
-video = cv2.VideoCapture('C:\\Users\\abhin\\Downloads\\Project\\Project\\1.mp4')
+video = cv2.VideoCapture('C:\\Users\\abhin\\Downloads\\Project\\Project\\2.mp4')
 
 frame_count = 0
 binary_sequence_fish1 = ""
 binary_sequence_fish2 = ""
-prev_positions = {}  # Store previous positions
+prev_positions = {}
 
 while True:
     ret, frame = video.read()
@@ -23,7 +29,7 @@ while True:
         break
 
     height, width, _ = frame.shape
-    ref_x, ref_y = width // 2, height // 2  # Static reference
+    ref_x, ref_y = width // 2, height // 2
 
     hsv = cv2.cvtColor(frame, cv2.COLOR_BGR2HSV)
     lower_orange = np.array([5, 100, 100])
@@ -46,7 +52,6 @@ while True:
                 angle = calculate_angle(ref_x, ref_y, fish_x, fish_y)
                 normalized_distance = int((distance / np.sqrt(width ** 2 + height ** 2)) * 255)
 
-                # Calculate velocity as additional entropy
                 if idx in prev_positions:
                     prev_x, prev_y = prev_positions[idx]
                     velocity = calculate_distance(prev_x, prev_y, fish_x, fish_y)
@@ -55,10 +60,8 @@ while True:
                     velocity_norm = 0
                 prev_positions[idx] = (fish_x, fish_y)
 
-                # Add pixel noise entropy
                 pixel_variation = np.sum(mask) % 256
 
-                # Combine values with velocity and pixel noise
                 processed_value = (normalized_distance + int(angle) % 360) % 256
                 processed_value = (processed_value ^ velocity_norm ^ pixel_variation) % 256
                 entity_data.append(f"{processed_value:08b}")
@@ -67,7 +70,7 @@ while True:
                 cv2.line(frame, (ref_x, ref_y), (fish_x, fish_y), (0, 255, 255), 2)
 
         if len(entity_data) == 2:
-            if frame_count % np.random.randint(5, 40) == 0:  # Randomized sampling interval
+            if frame_count % np.random.randint(5, 40) == 0:
                 binary_sequence_fish1 += entity_data[0]
                 binary_sequence_fish2 += entity_data[1]
 
@@ -79,9 +82,11 @@ while True:
 video.release()
 cv2.destroyAllWindows()
 
-# Splice the two binary sequences together with randomized order
 final_binary_sequence = ''.join(
     a + b if np.random.randint(0, 2) else b + a for a, b in zip(binary_sequence_fish1, binary_sequence_fish2))
 
-with open("output1.txt", "w") as f:
-    f.write(final_binary_sequence)
+# Apply LFSR scrambling
+scrambled_sequence = lfsr_scramble(final_binary_sequence)
+
+with open("output2.txt", "w") as f:
+    f.write(scrambled_sequence)
