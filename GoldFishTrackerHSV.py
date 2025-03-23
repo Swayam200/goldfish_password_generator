@@ -16,7 +16,7 @@ def lfsr_scramble(binary_sequence, seed=0b1100101, tap=0b101):
         scrambled_sequence += str(int(bit) ^ new_bit)  # XOR with input bit
     return scrambled_sequence
 
-video = cv2.VideoCapture('C:\\Users\\abhin\\Downloads\\Project\\Project\\2.mp4')
+video = cv2.VideoCapture('.\GoldFishRandom.mp4')
 
 frame_count = 0
 binary_sequence_fish1 = ""
