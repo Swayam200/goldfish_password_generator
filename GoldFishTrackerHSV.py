@@ -16,7 +16,7 @@ def lfsr_scramble(binary_sequence, seed=0b1100101, tap=0b101):
         scrambled_sequence += str(int(bit) ^ new_bit)  # XOR with input bit
     return scrambled_sequence
 
-video = cv2.VideoCapture('C:\\Users\\abhin\\Downloads\\Project\\Project\\2.mp4')
+video = cv2.VideoCapture('GoldFishRandom.mp4')
 
 frame_count = 0
 binary_sequence_fish1 = ""
@@ -60,10 +60,11 @@ while True:
                     velocity_norm = 0
                 prev_positions[idx] = (fish_x, fish_y)
 
-                pixel_variation = np.sum(mask) % 256
+                pixel_variation = int(np.sum(mask) % 256)  # 🔹 Convert NumPy type to Python int
 
-                processed_value = (normalized_distance + int(angle) % 360) % 256
-                processed_value = (processed_value ^ velocity_norm ^ pixel_variation) % 256
+                processed_value = int((normalized_distance + int(angle) % 360) % 256)  # 🔹 Convert to int
+                processed_value = int((processed_value ^ velocity_norm ^ pixel_variation) % 256)  # 🔹 Ensure XOR works
+
                 entity_data.append(f"{processed_value:08b}")
 
                 cv2.circle(frame, (fish_x, fish_y), 5, (0, 255, 0), -1)
