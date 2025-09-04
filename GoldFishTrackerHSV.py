@@ -11,9 +11,9 @@ def lfsr_scramble(binary_sequence, seed=0b1100101, tap=0b101):
     lfsr = seed
     scrambled_sequence = ""
     for bit in binary_sequence:
-        new_bit = (lfsr >> 2) & 1 ^ (lfsr >> 1) & 1  # XOR taps
-        lfsr = ((lfsr << 1) | new_bit) & 0b1111111  # Keep LFSR within 7 bits
-        scrambled_sequence += str(int(bit) ^ new_bit)  # XOR with input bit
+        new_bit = (lfsr >> 2) & 1 ^ (lfsr >> 1) & 1
+        lfsr = ((lfsr << 1) | new_bit) & 0b1111111
+        scrambled_sequence += str(int(bit) ^ new_bit)
     return scrambled_sequence
 
 video = cv2.VideoCapture('GoldFishRandom.mp4')
@@ -86,7 +86,6 @@ cv2.destroyAllWindows()
 final_binary_sequence = ''.join(
     a + b if np.random.randint(0, 2) else b + a for a, b in zip(binary_sequence_fish1, binary_sequence_fish2))
 
-# Apply LFSR scrambling
 scrambled_sequence = lfsr_scramble(final_binary_sequence)
 
 with open("output2.txt", "w") as f:
