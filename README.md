@@ -5,13 +5,6 @@
 ## Overview
 This repository implements the pipeline described in our accepted paper: using goldfish movement as a biological entropy source, extracting a binary sequence with computer vision, and hashing that sequence to seed password generation. The goal is a transparent, reproducible codebase that maps cleanly to the paper while keeping all claims accurate.
 
-## Paper
-- Title: [Add final paper title]
-- Authors: [Add author list]
-- Conference: [Add conference name]
-- Year: 2026
-- Link: [Add DOI or URL]
-
 ## Method (Paper-Aligned Summary)
 1. Record goldfish movement in a controlled environment and capture a video stream.
 2. Track fish centroids per frame (HSV color thresholding + contour selection).
